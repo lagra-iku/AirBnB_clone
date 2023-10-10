@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-pull=$(git pull)
-
-if [[ "$pull" == *"error"* ]]
+git pull
+pull=$?
+if [[ "$pull" -ne 0 ]]
 then
-	echo "Fix git pull error as seen in the following output, and run script again"
-	echo "$pull"
-	exit 1
+	echo "Fix git pull error and run script again"
+	exit 
 fi
 
 git add .

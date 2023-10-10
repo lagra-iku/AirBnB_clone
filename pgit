@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 pull=$(git pull)
+echo "$pull"
 
 if [ "$pull" -ne 0 ]
 then

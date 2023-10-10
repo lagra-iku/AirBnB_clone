@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+git pull
+git add .
+
+# Prompt for commit message
+echo "Please enter your commit message: "
+read message
+
+git commit -m "$message"
+git push

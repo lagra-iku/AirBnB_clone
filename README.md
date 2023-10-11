@@ -4,14 +4,10 @@ AirBnB Clone group project for ALX
 
 ## Authors
 - Olisajioke Bright Ahunanya
-- Grace O. Nweke 
+- Grace O. Nweke
 
-
-
-
-
-TASKS
-
+## Tasks 
+=======
 0. README, AUTHORS
 mandatory
 Write a README.md:
@@ -515,3 +511,4 @@ price_by_night: integer - 0
 latitude: float - 0.0
 longitude: float - 0.0
 
+>>>>>>> 7b6a501f80bcd4123d933be8aac4ae0d4dae65ac

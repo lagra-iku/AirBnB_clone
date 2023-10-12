@@ -4,7 +4,7 @@
 import cmd
 
 
-class HbnbCmd(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """command line interpreter class"""
     prompt = '(hbnb) '
 
@@ -13,7 +13,7 @@ class HbnbCmd(cmd.Cmd):
         return True
 
     def do_quit(self, line):
-        """Exit the CLI."""
+        """Quit command to exit the program"""
         return True
 
     def emptyline(self):
@@ -22,4 +22,4 @@ class HbnbCmd(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    HbnbCmd().cmdloop()
+    HBNBCommand().cmdloop()

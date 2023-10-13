@@ -6,18 +6,31 @@ from uuid import uuid4
 
 class BaseModel:
     """A class that defines common attributes/methods for other classes"""
-    def __init__(self, *args, **kwargs):
-        """Initialize a new instance of BaseModel."""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
-
+    def __init__(self, *args, **dicts):
+        """Initialize a new BaseModel.
+        Args:
+            *args (any): Unused.
+            **dicts (dictionary): Key/value pairs of attributes.
+        """
+        if dicts:
+            del dicts["__class__"]
+            for key, value in dicts.items():
+                if key == "created_at" or key == "updated_at":
+                    dtime = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    setattr(self, key, dtime)
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+    
     def save(self):
         """Update the 'updated_at' attribute with the current datetime"""
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """Returns a dictionary with key-value pairs from the object's attr.
+        """Returns a dictionary with key-value pairs from the obj's attributes
 
         Returns:
             dict: A dictionary with all the instance attributes and values.
@@ -29,17 +42,15 @@ class BaseModel:
                 obj_dict[key] = value.isoformat()
             else:
                 obj_dict[key] = value
-        # obj_dict["created_at"] = self.created_at.isoformat()
-        # obj_dict["updated_at"] = self.updated_at.isoformat()
         return obj_dict
 
     def __str__(self):
         """Returns a human-readable string representation of the object.
-            Returns:
-            str: A string containing the class name, id, and attr of the obj.
+        Returns:
+            str: A string with the class name, id, & attributes of the obj.
         """
         return "[{}] ({}) {}".format(
             self.__class__.__name__,
             self.id,
-            self.to_dict()
+            self.__dict__
         )

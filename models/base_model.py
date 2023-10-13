@@ -6,7 +6,7 @@ from uuid import uuid4
 
 class BaseModel:
     """A class that defines common attributes/methods for other classes"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initialize a new instance of BaseModel."""
         self.id = str(uuid4())
         self.created_at = datetime.now()
@@ -35,8 +35,7 @@ class BaseModel:
 
     def __str__(self):
         """Returns a human-readable string representation of the object.
-
-        Returns:
+            Returns:
             str: A string containing the class name, id, and attr of the obj.
         """
         return "[{}] ({}) {}".format(

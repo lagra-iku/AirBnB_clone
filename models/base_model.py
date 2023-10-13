@@ -6,15 +6,15 @@ from uuid import uuid4
 
 class BaseModel:
     """A class that defines common attributes/methods for other classes"""
-    def __init__(self, *args, **dicts):
+    def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel.
         Args:
             *args (any): Unused.
-            **dicts (dictionary): Key/value pairs of attributes.
+            **kwargs (keyword arguments): Key/value pairs of attributes.
         """
-        if dicts:
-            del dicts["__class__"]
-            for key, value in dicts.items():
+        if kwargs:
+            del kwargs["__class__"]
+            for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     dtime = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, dtime)
@@ -24,7 +24,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-    
+
     def save(self):
         """Update the 'updated_at' attribute with the current datetime"""
         self.updated_at = datetime.now()

@@ -125,6 +125,10 @@ class HBNBCommand(cmd.Cmd):
                         setattr(instance, argv[2], attr_value)
                         instance.save()
                     else:
+                        if value.isdigit():
+                            value = int(value)
+                        elif value.replace('.', '', 1).isdigit():
+                            value = float(value)
                         setattr(instance, argv[2], value)
                         instance.save()
                 else:

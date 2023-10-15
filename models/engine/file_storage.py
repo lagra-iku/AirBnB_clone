@@ -13,6 +13,7 @@ from models.user import User
 import models
 import sys
 
+
 class FileStorage:
     """A class filestorage"""
     __file_path = 'file.json'

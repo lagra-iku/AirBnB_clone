@@ -148,29 +148,30 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """switch command format"""
-        cmd = line.split(".")
+        cmd = line.split(".", 1)
         if cmd[0] in self.__classes:
             if cmd[1] == "all()":
                 self.do_all(cmd[0])
             elif cmd[1] == "count()":
                 self.do_count(cmd[0])
             elif cmd[1].startswith("show"):
-                check_id = re.search('\((.*?)\)', cmd[1])
+                check_id = re.search('\\((.*?)\\)', cmd[1])
                 arg = cmd[0] + " " + check_id.group(1)
                 self.do_show(arg)
             elif cmd[1].startswith("destroy"):
-                check_id = re.search('\((.*?)\)', cmd[1])
+                check_id = re.search('\\((.*?)\\)', cmd[1])
                 arg = cmd[0] + " " + check_id.group(1)
                 self.do_destroy(arg)
             elif cmd[1].startswith("update"):
-                check_id = re.search('\((.*?)\)', cmd[1])
+                check_id = re.search('\\((.*?)\\)', cmd[1])
                 attr_args = cmd[1].split()
-                arg = cmd[0] + " " + check_id.group(1) + " " + attr_args[1] + " " + attr_args[2]
+                arg = cmd[0] + " " + check_id.group(1) + \
+                    " " + attr_args[1] + " " + attr_args[2]
                 self.do_update(arg)
             else:
                 print(f"** the method {cmd[1]} doesn't exist **")
         else:
-            print(f"** The class {cmd[0]} doesn't exist **") 
+            print(f"** The class {cmd[0]} doesn't exist **")
 
 
 if __name__ == '__main__':

@@ -100,6 +100,38 @@ class HBNBCommand(cmd.Cmd):
                     instances.append(obj.__str__())
             print(instances)
 
+    def do_update(self, args):
+        """Updates an inst by updating attribute"""
+        argv = args.split()
+        if len(argv) == 0:
+            print("** class name missing **")
+        elif argv[0] in self.__classes:
+            if len(argv) == 1:
+                print("** instance id missing **")
+            else:
+                objs = storage.all()
+                check_id = str(argv[0]) + "." + str(argv[1])
+                if check_id in objs:
+                    instance = storage.all()[check_id]
+                    if len(argv) == 2:
+                        print("** attribute name missing **")
+                        return
+                    if len(argv) == 3:
+                        print("** value missing **")
+                        return
+                    value = json.loads(argv[3])
+                    if hasattr(instance, argv[2]):
+                        attr_value = type(getattr(instance, argv[2]))(value)
+                        setattr(instance, argv[2], attr_value)
+                        instance.save()
+                    else:
+                        setattr(instance, argv[2], value)
+                        instance.save()
+                else:
+                    print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
+
     def do_count(self, args):
         """Retrieve the number of instances of a class"""
         argv = args.split()
@@ -113,6 +145,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 count = eval(class_name).count()
                 print(count)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

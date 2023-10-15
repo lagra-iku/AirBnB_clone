@@ -3,13 +3,10 @@
 from datetime import datetime
 from uuid import uuid4
 import models
-from models import storage
 
 
 class BaseModel:
     """A class that defines common attributes/methods for other classes"""
-    instances = []
-
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel.
         Args:
@@ -60,7 +57,3 @@ class BaseModel:
             self.id,
             self.__dict__
         )
-
-    def count(cls):
-        """count the no of instances"""
-        return len(cls.instances)

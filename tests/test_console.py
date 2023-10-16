@@ -40,7 +40,7 @@ class TestHBNBCommandMethods(unittest.TestCase):
     def test_do_show(self):
         """Test show command."""
         with patch('sys.stdout', new=StringIO()) as output:
-             self.console.do_show("BaseModel 1234-5678")
+            self.console.do_show("BaseModel 1234-5678")
             shown_output = output.getvalue()
             self.assertIn("BaseModel", shown_output)
             self.assertIn("1234-5678", shown_output)

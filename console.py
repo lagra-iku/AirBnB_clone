@@ -12,6 +12,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import re
 import sys
 
 
@@ -139,16 +140,38 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Retrieve the number of instances of a class"""
         argv = args.split()
+        count = 0
+        for obj in storage.all().values():
+            if argv[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
 
-        if len(argv) == 0:
-            print("** class name missing **")
-        else:
-            class_name = argv[0]
-            if class_name not in self.__classes:
-                print("** class doesn't exist **")
+    def default(self, line):
+        """switch command format"""
+        cmd = line.split(".", 1)
+        if cmd[0] in self.__classes:
+            if cmd[1] == "all()":
+                self.do_all(cmd[0])
+            elif cmd[1] == "count()":
+                self.do_count(cmd[0])
+            elif cmd[1].startswith("show"):
+                check_id = re.search('\\((.*?)\\)', cmd[1])
+                arg = cmd[0] + " " + check_id.group(1)
+                self.do_show(arg)
+            elif cmd[1].startswith("destroy"):
+                check_id = re.search('\\((.*?)\\)', cmd[1])
+                arg = cmd[0] + " " + check_id.group(1)
+                self.do_destroy(arg)
+            elif cmd[1].startswith("update"):
+                check_id = re.search('\\((.*?)\\)', cmd[1])
+                attr_args = cmd[1].split()
+                arg = cmd[0] + " " + check_id.group(1) + \
+                    " " + attr_args[1] + " " + attr_args[2]
+                self.do_update(arg)
             else:
-                count = eval(class_name).count()
-                print(count)
+                print(f"** the method {cmd[1]} doesn't exist **")
+        else:
+            print(f"** The class {cmd[0]} doesn't exist **")
 
 
 if __name__ == '__main__':

@@ -43,7 +43,7 @@ class TestHBNBCommand(unittest.TestCase):
                 cmd = f"show BaseModel {created_output}"
                 self.console.onecmd(cmd)
                 show_output = mock_stdout_show.getvalue().strip()
-                self.assertEqual(show_output, str(eval(show_output)))
+                self.assertEqual(show_output, str(eval(show_output))
 
     def test_destroy(self):
         """
@@ -95,5 +95,5 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertTrue(count_output.isdigit())
 
 
-if __name__ == '__main':
+if __name__ == '__main__':
     unittest.main()

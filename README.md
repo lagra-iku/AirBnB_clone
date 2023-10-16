@@ -512,3 +512,51 @@ latitude: float - 0.0
 longitude: float - 0.0
 
 >>>>>>> 7b6a501f80bcd4123d933be8aac4ae0d4dae65ac
+
+
+10. Console 1.0
+mandatory
+Update FileStorage to manage correctly serialization and deserialization of all our new classes: Place, State, City, Amenity and Review
+
+Update your command interpreter (console.py) to allow those actions: show, create, destroy, update and all with all classes created previously.
+
+Enjoy your first console!
+
+No unittests needed for the console
+
+Repo:
+
+GitHub repository: AirBnB_clone
+File: console.py, models/engine/file_storage.py, tests/
+   
+11. All instances by class name
+#advanced
+Update your command interpreter (console.py) to retrieve all instances of a class by using: <class name>.all().
+
+guillaume@ubuntu:~/AirBnB$ ./console.py
+(hbnb) User.all()
+[[User] (246c227a-d5c1-403d-9bc7-6a47bb9f0f68) {'first_name': 'Betty', 'last_name': 'Bar', 'created_at': datetime.datetime(2017, 9, 28, 21, 12, 19, 611352), 'updated_at': datetime.datetime(2017, 9, 28, 21, 12, 19, 611363), 'password': '63a9f0ea7bb98050796b649e85481845', 'email': 'airbnb@mail.com', 'id': '246c227a-d5c1-403d-9bc7-6a47bb9f0f68'}, [User] (38f22813-2753-4d42-b37c-57a17f1e4f88) {'first_name': 'Betty', 'last_name': 'Bar', 'created_at': datetime.datetime(2017, 9, 28, 21, 11, 42, 848279), 'updated_at': datetime.datetime(2017, 9, 28, 21, 11, 42, 848291), 'password': 'b9be11166d72e9e3ae7fd407165e4bd2', 'email': 'airbnb@mail.com', 'id': '38f22813-2753-4d42-b37c-57a17f1e4f88'}]
+(hbnb) 
+No unittests needed
+
+Repo:
+
+GitHub repository: AirBnB_clone
+File: console.py
+   
+12. Count instances
+#advanced
+Update your command interpreter (console.py) to retrieve the number of instances of a class: <class name>.count().
+
+guillaume@ubuntu:~/AirBnB$ ./console.py
+(hbnb) User.count()
+2
+(hbnb) 
+No unittests needed
+
+Repo:
+
+GitHub repository: AirBnB_clone
+File: console.py
+   
+

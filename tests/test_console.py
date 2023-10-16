@@ -1,99 +1,83 @@
 import unittest
-from io import StringIO
 from unittest.mock import patch
+from io import StringIO
 from console import HBNBCommand
 
 
-class TestHBNBCommand(unittest.TestCase):
-    """
-    Test cases for the HBNBCommand class in console.py.
-    """
-
+class TestHBNBCommandMethods(unittest.TestCase):
     def setUp(self):
-        """
-        Set up a clean HBNBCommand instance before each test.
-        """
         self.console = HBNBCommand()
 
     def tearDown(self):
-        """
-        Clean up and remove the HBNBCommand instance after each test.
-        """
         self.console = None
 
-    def test_create(self):
-        """
-        Test the 'create' command to create an instance and check the output.
-        """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("create BaseModel")
-            output = mock_stdout.getvalue().strip()
-            self.assertTrue(len(output) > 0)
+    def test_do_EOF(self):
+        """Test EOF command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.assertTrue(self.console.do_EOF(""))
+            self.assertEqual("", output.getvalue())
 
-    def test_show(self):
-        """
-        Test the 'show' command to show an instance and check the output.
-        """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("create BaseModel")
-            created_output = mock_stdout.getvalue().strip()
-            self.assertTrue(len(created_output) > 0
+    def test_do_quit(self):
+        """Test quit command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.assertTrue(self.console.do_quit(""))
+            self.assertEqual("", output.getvalue())
 
-        with patch('sys.stdout', new_callable=StringIO) as mock_show:
-            cmd = f"show BaseModel {created_output}"
-            self.console.onecmd(cmd)
-            show_output = mock_show.getvalue().strip()
-            self.assertEqual(show_output, str(eval(show_output))
+    def test_emptyline(self):
+        """Test emptyline method."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.console.emptyline()
+            self.assertEqual("", output.getvalue())
 
-    def test_destroy(self):
-        """
-        Test the 'destroy' command to delete an instance and check the output.
-        """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("create BaseModel")
-            created_output = mock_stdout.getvalue().strip()
-            self.assertTrue(len(created_output) > 0
+    def test_do_create(self):
+        """Test create command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.console.do_create("BaseModel")
+            created_output = output.getvalue()
+            self.assertIn("created", created_output)
+            self.assertIn("BaseModel", created_output)
 
-        with patch('sys.stdout', new_callable=StringIO) as mock_destroy:
-            cmd = f"destroy BaseModel {created_output}"
-            self.console.onecmd(cmd)
-            destroy_output = mock_destroy.getvalue().strip()
-            self.assertEqual(destroy_output, "")
+    def test_do_show(self):
+        """Test show command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+             self.console.do_show("BaseModel 1234-5678")
+            shown_output = output.getvalue()
+            self.assertIn("BaseModel", shown_output)
+            self.assertIn("1234-5678", shown_output)
 
-    def test_all(self):
-        """
-        Test the 'all' command to list instances and check the output.
-        """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("all")
-            all_output = mock_stdout.getvalue().strip()
-            self.assertTrue(len(all_output) == 0)
+    def test_do_destroy(self):
+        """Test destroy command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.console.do_destroy("BaseModel 1234-5678")
+            destroyed_output = output.getvalue()
+            self.assertIn("BaseModel", destroyed_output)
+            self.assertIn("1234-5678", destroyed_output)
 
-    def test_update(self):
-        """
-        Test the 'update' command to modify an instance and check the output.
-        """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("create BaseModel")
-            created_output = mock_stdout.getvalue().strip()
-            self.assertTrue(len(created_output) > 0
+    def test_do_all(self):
+        """Test all command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.console.do_all("BaseModel")
+            all_output = output.getvalue()
+            self.assertIn("BaseModel", all_output)
 
-        with patch('sys.stdout', new_callable=StringIO) as mock_update:
-            cmd = f"update BaseModel {created_output} name 'New Name'"
-            self.console.onecmd(cmd)
-            update_output = mock_update.getvalue().strip()
-            self.assertEqual(update_output, "")
+    def test_do_update(self):
+        """Test update command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.console.do_update("BaseModel 1234-5678 attribute value")
+            update_output = output.getvalue()
+            self.assertIn("BaseModel", update_output)
+            self.assertIn("1234-5678", update_output)
+            self.assertIn("attribute", update_output)
+            self.assertIn("value", update_output)
 
-    def test_count(self):
-        """
-        Test the 'count' command to count instances and check the output.
-        """
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            cmd = "count BaseModel"
-            self.console.onecmd(cmd)
-            count_output = mock_stdout.getvalue().strip()
-            self.assertTrue(count_output.isdigit())
+    def test_do_count(self):
+        """Test count command."""
+        with patch('sys.stdout', new=StringIO()) as output:
+            self.console.do_count("BaseModel")
+            count_output = output.getvalue()
+            self.assertIn("BaseModel", count_output)
 
 
 if __name__ == '__main__':
     unittest.main()
+

@@ -16,7 +16,7 @@ header {
 }
 
 header .logo {
-    background: url("../images/logo.png") no-repeat center;
+    background: url("../images/logo.png") no-repeat left;
     padding-left: 20px;
     width: 20%;
     height: 70px;

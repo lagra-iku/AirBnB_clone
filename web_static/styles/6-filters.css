@@ -51,6 +51,8 @@ h4{
     padding: 10px;
     list-style-type: none;
     margin-top: 18px;
+    position: relative;
+    z-index: 1;
   }
 .popover > li > h2 {
 font-size: 16px;

@@ -22,7 +22,7 @@ button{
 button:hover {
 	opacity: 0.9;
 }
-.locations, .amenities {
+.locations, .filters > .amenities {
 	width: 25%;
 	text-align: left;
 	height: 100%;
@@ -62,7 +62,7 @@ margin-bottom: 0;
 .popover > li > ul {
     list-style-type: none;
     }
-.locations:hover > .popover, .amenities:hover > .popover {
+.locations:hover > .popover, .filters > .amenities:hover > .popover {
     display: block;
     background-color: #FAFAFA;
     border: 1px solid #DDDDDD;
